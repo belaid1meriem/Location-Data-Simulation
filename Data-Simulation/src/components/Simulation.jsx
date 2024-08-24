@@ -187,7 +187,7 @@ export default function Simulation({
         
     return(
         <>
-          <div className="simulation" >
+          <div className="simulation"  >
             <span className="locate-icon">
                   <BsFillPinMapFill onClick={()=>{
                     if(finalPoint)map.fitBounds([startPoint,finalPoint])
@@ -222,7 +222,9 @@ export default function Simulation({
                                                samplingDuration={samplingDuration}
                                                simulationDuration={simulationDuration}
                                                direction={direction}
-                                               name={name} />
+                                               distance={distance}
+                                               name={name}
+                                               setOpenedSimulationDetails={setOpenedSimulationDetails} />
                                                
                                                }   
       </>

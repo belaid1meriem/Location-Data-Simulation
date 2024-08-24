@@ -50,8 +50,8 @@ export default function Sidebar({height, setHeight ,visible, handleVisibility, s
                 <TiMinus className="minus"/>
             </div>
             <div className="content">
-                <Simulations openNewSimulForm={()=>{setOpenNewSimulForm(true)}}  setOpenedSimulationDetails={setOpenedSimulationDetails} />
-                {openedSimulationDetails && <SimulationForm simulation={openedSimulationDetails} closeNewSimulForm={()=>{setOpenedSimulationDetails(null)}}/>}
+                {openedSimulationDetails ? <SimulationForm simulation={openedSimulationDetails} closeSimulForm={()=>{setOpenedSimulationDetails(null)}}/>
+                                        : <Simulations openNewSimulForm={()=>{setOpenNewSimulForm(true)}}  setOpenedSimulationDetails={setOpenedSimulationDetails} />}
             </div>
         </div>
         

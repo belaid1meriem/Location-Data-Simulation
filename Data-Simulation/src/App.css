@@ -107,7 +107,7 @@ h2{
 }
 
 .content{
-  flex:1
+  flex:1;
 }
 .minus{
   display: none;
@@ -166,7 +166,14 @@ h2{
   background-color:#fcfdff;
   padding: 1%;
   padding-left: 3%;
-  padding-right: 3%;
+  padding-right: 3%;  
+}
+
+.form-container-edit{
+  text-align: justify;
+  padding: 1%;
+  padding-left: 3%;
+  padding-right: 3%;  
 }
 
 
@@ -372,6 +379,11 @@ form{
   display: flex;
   justify-content: space-between;
 }
+.simulation-details-ctrl{
+  display: flex;
+  justify-content:space-between;
+  flex:0.2
+}
 .delete-icon{
   cursor: pointer;
   transition: 0.1s;
@@ -379,6 +391,14 @@ form{
 
 .delete-icon:hover{
   color: #fb2a2a;
+}
+.edit-icon{
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.edit-icon:hover{
+  color: #0d47a1;
 }
 
 .detail{
