@@ -13,6 +13,8 @@ import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import 'leaflet-routing-machine';
 import * as turf from '@turf/turf';
 import axios from 'axios'
+import { indicatorsContext } from '../context/indicatorsContext';
+
 
 
 export default function Simulation({
@@ -26,14 +28,6 @@ export default function Simulation({
     direction,
     distance}){
 
-      console.log({name,
-        speed,
-        startPoint,
-        finalPoint,
-        samplingDuration,
-        simulationDuration,
-        direction})
-
     const[showDetails,setShowDetails] =useState(false);
     const[stoped,setStoped]=useState(true);
     const[paused,setPaused]=useState(true);
@@ -42,11 +36,18 @@ export default function Simulation({
     const route= useRef(null);
     const interval= useRef(null);
     const samplingInterval= useRef(null);
+    
     const 
     {
         simulations,setSimulations,
         map,setMap,
     }= useContext(mapContext);
+
+    const {
+      errorMsg,setErrorMsg,
+      successMsg,setSuccessMsg,
+      infoMsg,setInfoMsg
+      }=useContext(indicatorsContext);
 
 
 
@@ -113,6 +114,10 @@ export default function Simulation({
           }
         },delay)
       })
+      
+      route.current.on('routingerror',()=>{
+        setErrorMsg("An error occurred while routing, please try again ")
+      })
     }
 
     const calculateFinalPoint =(startPoint,direction,distance,finalPoint)=>{
@@ -168,6 +173,7 @@ export default function Simulation({
       }
       else {
         clearInterval(interval.current);
+        clearInterval(samplingInterval.current);
         if(markers.current){
           markers.current.remove() ;
           markers.current=null;

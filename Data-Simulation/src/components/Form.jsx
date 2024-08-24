@@ -5,11 +5,19 @@ import { useContext } from "react";
 import { MdCancel } from "react-icons/md";
 import { BsFillPinMapFill } from "react-icons/bs";
 import Tooltip from "./Tooltip";
+import { indicatorsContext } from '../context/indicatorsContext';
+
 
 export default function Form({closeNewSimulForm}){
     const {
         simulations,setSimulations
     }= useContext(mapContext);
+
+    const {
+        errorMsg,setErrorMsg,
+        successMsg,setSuccessMsg,
+        infoMsg,setInfoMsg
+        }=useContext(indicatorsContext);
 
     const [formData, setFormData] = useState({
         longitude: '',
@@ -31,6 +39,13 @@ export default function Form({closeNewSimulForm}){
             [name]: value
         });
     };
+    const nameIsValid= () => {
+        return !simulations.some(simulation => simulation.name === formData.name);
+    }
+
+    const finalCorrdsAreValid = () => {
+        return ! (formData.longitudeF === formData.longitude && formData.latitudeF === formData.latitude)
+    }
 
     //controlling using the direction parameter or the final point 
     useEffect(() => {
@@ -43,8 +58,20 @@ export default function Form({closeNewSimulForm}){
 
     const handleSubmit=(e)=>{
         e.preventDefault();
+
+        if(!nameIsValid()){
+            setErrorMsg("A simulation with the given name already exists.");
+            return
+        }
+
+        if (!finalCorrdsAreValid()){
+            setErrorMsg("Please provide a valid final point.");
+            return
+        }
+
         setSimulations([...simulations,formData]);
         closeNewSimulForm();
+        setSuccessMsg("The simulation was created successfully!")
         console.log(formData);
     }
     
@@ -84,11 +111,11 @@ export default function Form({closeNewSimulForm}){
                         <div className="input-row">
                             <div className="input-group">
                                 <label className="label">Latitude</label>
-                                <input className="input-field row" type="number" step="any" name="latitude" value={formData.latitude} onChange={handleInputChange} required />
+                                <input className="input-field row" type="number" step="any" min="-90" max="90" name="latitude" value={formData.latitude} onChange={handleInputChange} required />
                             </div>
                             <div className="input-group">
                                 <label className="label">Longitude</label>
-                                <input className="input-field row" type="number" step="any" name="longitude" value={formData.longitude} onChange={handleInputChange}  required />
+                                <input className="input-field row" type="number" step="any" min="-180" max="180" name="longitude" value={formData.longitude} onChange={handleInputChange}  required />
                             </div>
                             <BsFillPinMapFill className="map-icon"/>
                         </div>
@@ -99,11 +126,11 @@ export default function Form({closeNewSimulForm}){
                         <div className="input-row">                      
                             <div className="input-group">
                                 <label className="label">Latitude</label>
-                                <input className="input-field row" type="number" step="any" name="latitudeF" value={formData.latitudeF} onChange={handleInputChange} disabled={formData.direction} required />
+                                <input className="input-field row" type="number" step="any" min="-90" max="90" name="latitudeF" value={formData.latitudeF} onChange={handleInputChange} disabled={formData.direction} required />
                             </div>
                             <div className="input-group">
                                 <label className="label">Longitude</label>
-                                <input className="input-field row" type="number" step="any" name="longitudeF" value={formData.longitudeF} onChange={handleInputChange} disabled={formData.direction} required />
+                                <input className="input-field row" type="number" step="any" min="-180" max="180" name="longitudeF" value={formData.longitudeF} onChange={handleInputChange} disabled={formData.direction} required />
                             </div>
                             
                             <Tooltip text="select position in the map">
@@ -121,7 +148,7 @@ export default function Form({closeNewSimulForm}){
                     <div className="input-row">
                         <div className="input-group">
                             <label className="label">Direction (Degrees °)</label>
-                            <input className="input-field row" type="number" step="any" name="direction" placeholder="Object direction with degrees" value={formData.direction} onChange={handleInputChange} disabled={formData.longitudeF || formData.latitudeF} required />
+                            <input className="input-field row" type="number" step="any" min="-180" max="180" name="direction" placeholder="Object direction with degrees" value={formData.direction} onChange={handleInputChange} disabled={formData.longitudeF || formData.latitudeF} required />
                         </div>
                         <div className="input-group">
                             <label className="label">Distance (km)</label>

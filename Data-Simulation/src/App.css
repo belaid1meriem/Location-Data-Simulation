@@ -49,12 +49,12 @@ h2{
   z-index: 2; /* Ensure item2 is above item1 */
   height: 100%;
   width: 40%;
-  transform: translate(-100%);
+  transform: translateX(-100%);
   transition: 0.8s
 }
 
 .visible{
-  transform: translate(0%)
+  transform: translateX(0%)
 }
 
 .new-simul-form-container{
@@ -71,6 +71,7 @@ h2{
 .sidemenu{
   display: flex;
   flex-direction:row-reverse;
+  /* flex-direction: column; */
   padding: 10px;
   height: 100%;
   background-color: #fcfdff;
@@ -108,6 +109,47 @@ h2{
 .content{
   flex:1
 }
+.minus{
+  display: none;
+}
+
+@media  (max-width: 768px) {
+  /* For screens smaller than 768px */
+ .sidemenu-container{
+  top:auto;
+  bottom:0;
+  height:100% ;
+  width: 100%;
+  transform: translateX(0%);
+  transition: 0.8s;
+  touch-action: none;
+ }
+
+ .sidemenu{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  height: 100%;
+  background-color: #fcfdff;
+  border-top-right-radius: 3%;
+  border-top-left-radius: 3%;
+  transition: 0.9s;
+  touch-action: none;
+
+}
+
+.arrow-circle-container{
+ display: none;
+}
+
+
+.minus{
+  display:block
+}
+
+}
+
+
 
 .form-background{
   background-color: rgba(0, 0, 0, 0.402);
@@ -126,6 +168,7 @@ h2{
   padding-left: 3%;
   padding-right: 3%;
 }
+
 
 .form-container .form-header .form-title h3{
   font-size: 98%;
@@ -197,6 +240,17 @@ form{
 
 .input-field:disabled{
   background-color: #EBF7F3;
+}
+
+.input-field:user-invalid{
+  border: 1.5px solid #fb2a2a;
+}
+
+.input-field:user-valid{
+  border: 1.5px solid #2dc653;
+}
+.invalid{
+  border: 1.5px solid #fb2a2a;
 }
 
 
