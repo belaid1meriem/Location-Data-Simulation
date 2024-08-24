@@ -221,7 +221,9 @@ export default function Simulation({
                                                finalPoint={finalPoint} 
                                                samplingDuration={samplingDuration}
                                                simulationDuration={simulationDuration}
-                                               direction={direction} />
+                                               direction={direction}
+                                               name={name} />
+                                               
                                                }   
       </>
         

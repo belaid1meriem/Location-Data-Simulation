@@ -369,6 +369,16 @@ form{
   border-radius: 7px;
   background-color:#EBF7F3;
   margin: 0 0.4rem;
+  display: flex;
+  justify-content: space-between;
+}
+.delete-icon{
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.delete-icon:hover{
+  color: #fb2a2a;
 }
 
 .detail{
